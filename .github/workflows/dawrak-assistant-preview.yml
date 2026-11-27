@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --test assistant/tests/guard.test.cjs && node --check assistant/extension/content.js && node --check assistant/extension/popup.js && python3 assistant/tests/verify_identity.py
+      - run: node --test assistant/tests/guard.test.cjs && node --check assistant/extension/content.js && node --check assistant/extension/popup.js && python3 assistant/tests/verify_identity.py && python3 assistant/tests/verify_gecko_resources.py
   build:
     needs: guard
     uses: ./.github/workflows/build.yml

@@ -23,10 +23,10 @@ index f3ff8d07c4e8..8aa547db696d 100644
 +]
 +
 +FINAL_TARGET_FILES.extensions.dawrakassistant += [
-+    "dawrakassistant/manifest.json",
-+    "dawrakassistant/guard.js",
 +    "dawrakassistant/content.js",
-+    "dawrakassistant/popup.html",
++    "dawrakassistant/guard.js",
++    "dawrakassistant/manifest.json",
 +    "dawrakassistant/popup.css",
++    "dawrakassistant/popup.html",
 +    "dawrakassistant/popup.js",
 +]
