@@ -74,7 +74,7 @@ final class OpenInViewController: UIViewController {
     }
     
     private func browserOpenURL(for sharedURL: URL) -> URL? {
-        guard var components = URLComponents(string: "reynard://open") else {
+        guard var components = URLComponents(string: "dawrak-reynard://open") else {
             return nil
         }
         
@@ -124,7 +124,7 @@ final class OpenInViewController: UIViewController {
     
     private func finishWithError(message: String) {
         let error = NSError(
-            domain: "com.minh-ton.Reynard.OpenIn",
+            domain: "com.dawrak.Reynard.OpenIn",
             code: 1,
             userInfo: [NSLocalizedDescriptionKey: message]
         )

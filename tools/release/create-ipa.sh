@@ -13,7 +13,7 @@ WORK_DIR="$ROOT_DIR/dist/Reynard"
 BUILD_TYPE="${1:-normal}"
 case "$BUILD_TYPE" in
 	--trollstore)
-		OUTPUT_NAME="Reynard-TrollStore.tipa"
+		OUTPUT_NAME="Reynard-AI-TrollStore.tipa"
 		PTRACE_JIT_NAME="ts_ptrace_jit"
 		;;
 	--jailbroken)
@@ -42,9 +42,9 @@ fi
 
 # I absolutely hate Apple for this
 # Why is my bundle identifier just become unavailable for no reason?
-plutil -replace CFBundleIdentifier -string "com.minh-ton.Reynard" "$APP_PATH/Info.plist"
-plutil -replace CFBundleIdentifier -string "com.minh-ton.Reynard.Helper" "$APP_PATH/PlugIns/Reynard Helper.appex/Info.plist"
-plutil -replace CFBundleIdentifier -string "com.minh-ton.Reynard.OpenIn" "$APP_PATH/PlugIns/OpenIn.appex/Info.plist"
+plutil -replace CFBundleIdentifier -string "com.dawrak.Reynard" "$APP_PATH/Info.plist"
+plutil -replace CFBundleIdentifier -string "com.dawrak.Reynard.Helper" "$APP_PATH/PlugIns/Reynard Helper.appex/Info.plist"
+plutil -replace CFBundleIdentifier -string "com.dawrak.Reynard.OpenIn" "$APP_PATH/PlugIns/OpenIn.appex/Info.plist"
 
 rm -rf "$WORK_DIR" "$ROOT_DIR/dist/$OUTPUT_NAME"
 mkdir -p "$WORK_DIR/Payload"
