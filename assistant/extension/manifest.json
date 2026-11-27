@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+  "name": "Dawrak Browser Assistant",
+  "description": "Local explicit approval browser assistant; no background service or external connection.",
+  "version": "0.1.1",
+  "permissions": [
+    "activeTab"
+  ],
+  "incognito": "not_allowed",
+  "browser_action": {
+    "default_title": "مساعد المتصفح",
+    "default_popup": "popup.html"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "dawrak-assistant@local.example",
+      "strict_min_version": "128.0"
+    }
+  },
+  "content_security_policy": "script-src 'self'; object-src 'none'"
+}

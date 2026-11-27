@@ -1,0 +1,25 @@
+name: Dawrak assistant preview
+on:
+  workflow_dispatch:
+  push:
+    branches: [dawrak-assistant-v0.1]
+permissions:
+  contents: read
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test assistant/tests/guard.test.cjs && node --check assistant/extension/content.js && node --check assistant/extension/popup.js
+  build:
+    needs: guard
+    uses: ./.github/workflows/build.yml
+    with:
+      checkout_ref: ${{ github.sha }}
+      nightly: false
+      build_normal_ipa: false
+      build_trollstore_tipa: true
+      build_jailbroken_ipa: false

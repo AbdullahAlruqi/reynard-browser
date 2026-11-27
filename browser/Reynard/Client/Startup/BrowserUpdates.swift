@@ -23,7 +23,7 @@ final class BrowserUpdates: NSObject {
         let sideloadIPA = docs.appendingPathComponent("Reynard.ipa")
         try? FileManager.default.removeItem(at: sideloadIPA)
         
-        fetchUpdates()
+        // Fork preview: update manually from a reviewed fork artifact.
     }
     
     private func fetchUpdates() {

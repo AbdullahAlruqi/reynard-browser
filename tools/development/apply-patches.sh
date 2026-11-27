@@ -76,3 +76,7 @@ for patch_file in $patch_files; do
 done
 
 echo "Finished applying patches."
+
+# Copy local assistant resources after upstream patches.
+mkdir -p "$SUBMODULE_PATH/mobile/ios/app/dawrakassistant"
+cp "$ROOT_DIR"/assistant/extension/{manifest.json,guard.js,content.js,popup.html,popup.css,popup.js} "$SUBMODULE_PATH/mobile/ios/app/dawrakassistant/"
