@@ -86,7 +86,7 @@ jobs:
       matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
     env:
       SCCACHE_GHA_ENABLED: "true"
-      SCCACHE_GHA_VERSION: ${{ runner.arch }}-${{ matrix.sccache_namespace }}
+      SCCACHE_GHA_VERSION: X64-${{ matrix.sccache_namespace }}
 
     steps:
       - name: Check out repository
