@@ -5,6 +5,9 @@ Experimental bundled WebExtension. No API key, server, remote debugger, backgrou
 ## Build
 The fork uses the upstream build workflow and a dedicated preview workflow, with resources copied into Gecko and installed through ensureBuiltIn. No global signature policy is changed. GitHub Actions must be enabled on the fork; select Dawrak assistant preview or run the branch push workflow. Download the artifact Reynard-AI-TrollStore.tipa if the build succeeds. No binary has been verified yet. The fork uses independent app and extension bundle identifiers (com.dawrak.Reynard), display name Reynard AI, and its own dawrak-reynard URL scheme. CI verifies package identifiers and display name before artifact upload. Side-by-side installation still requires an actual device test. Back up before testing. Upstream auto-update checks are intentionally disabled to avoid offering upstream packages. This fork requires manual upstream security maintenance.
 
+## Runner recovery
+The first two macos-26 ARM64 jobs (46030071271 and 46032636808) were cancelled before any job steps ran. Their logs were unavailable, so the exact cause is unconfirmed. The next attempt uses the documented macos-26-intel standard runner with Xcode 26.6, preserving the aarch64-apple-ios target. Host architecture is included in cache keys and preflight prints the SDK and disk information. CI fails immediately if any Gecko patch fails. Cross-host compatibility and the complete binary remain unverified until the build actually runs. No paid runner was provisioned.
+
 ## Test
 node --test assistant/tests/guard.test.cjs
 

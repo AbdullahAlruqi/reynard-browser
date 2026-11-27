@@ -67,6 +67,10 @@ for patch_file in $patch_files; do
 
 	if ! git -C "$SUBMODULE_PATH" apply --3way --whitespace=nowarn "$patch_file"; then
 		echo "Failed to apply $rel_path."
+		if [[ "${CI:-false}" == "true" ]]; then
+			echo "::error::Gecko patch failed: $rel_path"
+			exit 1
+		fi
 		echo "Resolve conflicts in $SUBMODULE_PATH, then press Enter to continue or type q to stop."
 		read -r response
 		if [[ "$response" == "q" || "$response" == "Q" ]]; then
