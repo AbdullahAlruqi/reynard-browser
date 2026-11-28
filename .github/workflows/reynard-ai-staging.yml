@@ -1,0 +1,24 @@
+name: Reynard AI 0.2 staging checks
+on:
+  push:
+    branches: [reynard-ai-v0.2-staging]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Local guard and gateway tests (no live API)
+        run: node --test assistant/tests/guard.test.cjs assistant/bridge/server.test.cjs
+      - name: Syntax and resource registration
+        run: |
+          node --check assistant/extension/content.js
+          node --check assistant/extension/popup.js
+          node --check assistant/bridge/server.cjs
+          python3 assistant/tests/verify_identity.py
+          python3 assistant/tests/verify_gecko_resources.py

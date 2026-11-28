@@ -30,11 +30,10 @@ $("ask").onclick=()=>run(async()=>{
  if(!current||current.expires<=Date.now()||!task||task.length>1000||token.length<32)throw Error("افحص الصفحة وأكمل إعداد الربط والطلب");
  const pattern=u.origin+"/*";
  // Request only this origin, immediately from the click gesture. No permanent host access.
- const had=await browser.permissions.contains({origins:[pattern]});
- if(!had&&!await browser.permissions.request({origins:[pattern]}))throw Error("لم تمنح إذن الاتصال بالبوابة");
+ if(!await browser.permissions.request({origins:[pattern]}))throw Error("لم تمنح إذن الاتصال بالبوابة");
  try{
   const fresh=(await send("get")).snapshot;
-  if(JSON.stringify(fresh)!==JSON.stringify(current))throw Error("تغيرت المعاينة؛ افحص الصفحة من جديد");
+  if($("task").value.trim()!==task||$("endpoint").value.trim()!==u.href||$("pair").value.trim()!==token||JSON.stringify(fresh)!==JSON.stringify(current))throw Error("تغيرت المعاينة؛ افحص الصفحة من جديد");
   try{localStorage.setItem("dawrak-gateway",u.href)}catch{}
   status("جارٍ طلب الاقتراح من البوابة...");
   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),30000);
@@ -44,12 +43,12 @@ $("ask").onclick=()=>run(async()=>{
   const plan=await response.json();
   if(typeof plan.summary!=="string"||plan.summary.length>2000)throw Error("رد غير صالح");
   const latest=(await send("get")).snapshot;
-  if(JSON.stringify(latest)!==JSON.stringify(current))throw Error("تغيرت الصفحة أثناء الطلب");
+  if($("task").value.trim()!==task||$("endpoint").value.trim()!==u.href||$("pair").value.trim()!==token||JSON.stringify(latest)!==JSON.stringify(current))throw Error("تغيرت الصفحة أثناء الطلب");
   $("answer").textContent=plan.summary;
   if(plan.command===null){status("تم التحليل دون إجراء");return}
   showProposal(plan.command,latest);
  }finally{
-  if(!had)try{await browser.permissions.remove({origins:[pattern]})}catch{}
+  try{await browser.permissions.remove({origins:[pattern]})}catch{}
  }
 });
 $("preview").onclick=()=>run(async()=>{clear();const cmd=JSON.parse($("cmd").value);const s=(await send("get")).snapshot;const item=policy(cmd,s);snap=s;approved=cmd;$("details").textContent=cmd.origin+"\n"+item.label+"\n"+(item.target||"")+"\n"+(cmd.text||"")+"\nقد يغير الضغط أو الإدخال بيانات الموقع."; $("review").hidden=false;status("بانتظار موافقتك على إجراء واحد")});
