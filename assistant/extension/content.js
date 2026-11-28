@@ -14,7 +14,8 @@ function describe(e){
 }
 function scan(){state=null;if(window.top!==window||location.protocol!=="https:")throw Error("صفحات HTTPS الرئيسية فقط");
  const controls=[],nodes=[];for(const e of document.querySelectorAll('a[href],button,[role="button"],input,textarea')){if(controls.length===60)break;try{const x=describe(e);if(x){nodes.push(e);controls.push({id:nodes.length,...x})}}catch{}}
- const snapshot={snapshot:crypto.randomUUID(),origin:location.origin,expires:Date.now()+300000,controls};state={snapshot,nodes,url:location.href};return {snapshot};
+ const headings=Array.from(document.querySelectorAll("h1,h2,h3")).filter(e=>e.getClientRects().length&&!e.closest("[hidden],[inert],[aria-hidden=true]")).map(e=>e.innerText.replace(/[\x00-\x1f\x7f\u202a-\u202e\u2066-\u2069]/g," ").trim().slice(0,100)).filter(t=>t&&!blocked.test(t)).slice(0,12);
+ const snapshot={snapshot:crypto.randomUUID(),origin:location.origin,expires:Date.now()+300000,headings,controls};state={snapshot,nodes,url:location.href};return {snapshot};
 }
 function current(){if(!state||state.url!==location.href||state.snapshot.expires<=Date.now()){state=null;throw Error("افحص الصفحة مجددًا")}return state}
 browser.runtime.onMessage.addListener((m,sender)=>{if(sender.id!==browser.runtime.id||m?.scope!=="dawrak-v1")return false;try{

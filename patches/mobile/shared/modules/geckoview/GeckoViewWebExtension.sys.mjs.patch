@@ -52,7 +52,7 @@ index 2f2120d22694..b71d95e2c7bd 100644
    addDownloadItem(item) {
      this._downloads.set(item.id, item);
    }
-@@ -1166,12 +1202,18 @@ export var GeckoViewWebExtension = {
+@@ -1166,12 +1202,19 @@ export var GeckoViewWebExtension = {
        return null;
      }
  
@@ -60,17 +60,18 @@ index 2f2120d22694..b71d95e2c7bd 100644
 -      aCallback.onError(`Only resource://android/... URIs are allowed.`);
 +    const isAndroidResource =
 +      uri.scheme === "resource" && uri.host === "android";
-+    const isIOSReaderViewResource =
-+      uri.spec === "resource://app/extensions/readerview/";
-+    if (!isAndroidResource && !isIOSReaderViewResource) {
++    const isIOSBuiltInResource =
++      uri.spec === "resource://app/extensions/readerview/" ||
++      uri.spec === "resource://app/extensions/dawrakassistant/";
++    if (!isAndroidResource && !isIOSBuiltInResource) {
 +      aCallback.onError(
-+        `Only resource://android/... URIs are allowed.`
++        `Only approved built-in extension resource URIs are allowed.`
 +      );
        return null;
      }
  
 -    if (uri.fileName !== "") {
-+    if (!isIOSReaderViewResource && uri.fileName !== "") {
++    if (!isIOSBuiltInResource && uri.fileName !== "") {
        aCallback.onError(
          `This URI does not point to a folder. Note: folders URIs must end with a "/".`
        );

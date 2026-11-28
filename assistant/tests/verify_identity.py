@@ -47,5 +47,9 @@ if len(sys.argv) == 2:
             if expected == ID:
                 require(p["CFBundleDisplayName"] == "Reynard AI", "Packaged display name")
                 require("dawrak-reynard" in p["CFBundleURLTypes"][0]["CFBundleURLSchemes"], "Packaged URL scheme")
-        print("Package identity checks passed.")
+        prefix = "Payload/Reynard.app/Frameworks/GeckoView.framework/Frameworks/extensions/dawrakassistant/"
+        for source in (ROOT / "assistant/extension").iterdir():
+            if source.is_file():
+                require(z.read(prefix + source.name) == source.read_bytes(), f"Packaged assistant mismatch: {source.name}")
+        print("Package identity and assistant resource checks passed.")
 print("Source identity checks passed.")

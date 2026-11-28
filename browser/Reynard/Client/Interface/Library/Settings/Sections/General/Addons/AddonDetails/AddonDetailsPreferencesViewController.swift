@@ -71,7 +71,8 @@ final class AddonDetailsPreferencesViewController: SettingsTableViewController {
             rows.append(.settings)
         }
         
-        rows.append(contentsOf: [.details, .permissions, .remove])
+        rows.append(contentsOf: [.details, .permissions])
+        if addon?.isBuiltIn == false { rows.append(.remove) }
         return rows
     }
     

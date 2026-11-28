@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Dawrak Browser Assistant",
-  "description": "Local explicit approval browser assistant; no background service or external connection.",
-  "version": "0.1.1",
+  "description": "User-approved local actions and optional authenticated AI gateway; no background access.",
+  "version": "0.2.0",
   "permissions": [
     "activeTab"
   ],
@@ -17,5 +17,8 @@
       "strict_min_version": "128.0"
     }
   },
-  "content_security_policy": "script-src 'self'; object-src 'none'"
+  "content_security_policy": "script-src 'self'; object-src 'none'",
+  "optional_permissions": [
+    "https://*/"
+  ]
 }

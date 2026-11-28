@@ -20,7 +20,9 @@ public extension AddonRuntime {
               let addonPayload = payload["extension"] as? [String: Any?] else {
             throw GeckoHandlerError("Invalid built-in extension response")
         }
-        return Addon(dictionary: addonPayload)
+        let addon = upsertAddon(from: addonPayload)
+        delegate?.addonController(self, didUpdate: addon)
+        return addon
     }
     
     func list() async throws -> [Addon] {

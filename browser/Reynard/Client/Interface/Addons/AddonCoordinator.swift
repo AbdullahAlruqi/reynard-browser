@@ -62,6 +62,9 @@ final class AddonCoordinator: NSObject, AddonEmbedderDelegate {
             )
         } catch {
             NSLog("Dawrak assistant unavailable: %@", "\(error)")
+            await MainActor.run {
+                self.delegate?.presentAddonAlert(self, title: "مساعد المتصفح", message: "تعذر تحميل المساعد المدمج. لا تُرسل أي بيانات. \(error)")
+            }
         }
         _ = try? await AddonRuntime.shared.list()
         updateCoordinator.start()
