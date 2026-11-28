@@ -27,7 +27,7 @@ $("ask").onclick=()=>run(async()=>{
  if(!$("consent").checked)throw Error("راجع المعاينة ووافق على إرسالها أولًا");
  const current=snap,task=$("task").value.trim(),token=$("pair").value.trim(),u=validateEndpoint($("endpoint").value.trim());
  clear();$("answer").textContent="";
- if(!current||current.expires<=Date.now()||!task||task.length>1000||token.length<32)throw Error("افحص الصفحة وأكمل إعداد الربط والطلب");
+ if(!current||current.expires<=Date.now()||!task||task.length>1000||token.length<32||token.length>256)throw Error("افحص الصفحة وأكمل إعداد الربط والطلب");
  const pattern=u.origin+"/*";
  // Request only this origin, immediately from the click gesture. No permanent host access.
  if(!await browser.permissions.request({origins:[pattern]}))throw Error("لم تمنح إذن الاتصال بالبوابة");

@@ -72,7 +72,7 @@ final class AddonsPreferencesViewController: SettingsTableViewController {
     }
     
     private var canCheckForAddonUpdates: Bool {
-        return listedAddonCount > 0
+        return installedAddons.contains { !$0.isBuiltIn } || unsupportedAddons.contains { !$0.isBuiltIn }
     }
     
     private var displayedMoreRows: [MoreRow] {

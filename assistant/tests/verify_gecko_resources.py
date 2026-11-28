@@ -32,3 +32,11 @@ assert manifest["browser_specific_settings"]["gecko"]["id"]=="dawrak-assistant@l
 settings=(root / "browser/Reynard/Client/Interface/Library/Settings/Sections/General/Addons/AddonsPreferencesViewController.swift").read_text()
 assert settings.count('!$0.isBuiltIn || $0.id == "dawrak-assistant@local.example"')==2
 print("Runtime allowlist, patch counts, manifest and settings checks passed")
+
+html = (root / "assistant/extension/popup.html").read_text()
+popup = (root / "assistant/extension/popup.js").read_text()
+ids = re.findall(r'\bid="([^"]+)"', html)
+assert len(ids)==len(set(ids)), "Duplicate popup IDs"
+assert set(re.findall(r'\$\("([^"]+)"\)', popup)) <= set(ids), "Missing popup elements"
+assert manifest["optional_permissions"] == ["https://*/*"], "Unexpected optional permissions"
+print("Popup element IDs and optional permissions checks passed")

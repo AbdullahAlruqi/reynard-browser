@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: '22'
       - name: Local guard and gateway tests (no live API)
-        run: node --test assistant/tests/guard.test.cjs assistant/bridge/server.test.cjs
+        run: node --test assistant/tests/guard.test.cjs assistant/tests/popup.test.cjs assistant/bridge/server.test.cjs
       - name: Syntax and resource registration
         run: |
           node --check assistant/extension/content.js
